@@ -16,7 +16,7 @@ minimum_height=150
 # Convertir les fichiers SVG en image PNG si nécéssaire
 magick mogrify -format png -path "$output_dir" "$input_dir"/*.svg
 
-# Check if there are any PNG files in the output directory
+# Check si il y a des images PNG dans le répertoire de sortie
 if [ -z "$(ls -A "$output_dir"/*.png 2>/dev/null)" ]; then
     echo "No PNG files found in $output_dir"
     exit 1
