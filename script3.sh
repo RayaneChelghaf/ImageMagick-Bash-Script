@@ -11,11 +11,6 @@ mkdir -p "$output_dir"
 minimum_width=150
 minimum_height=150
 
-# Convertir les fichiers SVG en image PNG si nécéssaire
-# magick mogrify -format png -path "$output_dir" "$input_dir"/*.svg
-
-
-
 
 # Convertir tout les fichiers dans le répertoire d'entrée en image PNG
 for file in "$input_dir"/*; do
@@ -23,24 +18,18 @@ for file in "$input_dir"/*; do
     extension="${file##*.}"
     
     # Convertir le fichier en image PNG si ce n'en est pas déjà un
-    # if [[ "$extension" != "png" ]]; then
-     if [[ "$extension" == "svg" ]]; then
-
+    if [[ "$extension" == "svg" ]]; then
         convert "$file" "$output_dir/$(basename "$file" ".$extension").png"
-    else
+    elif [[ "$extension" != "png" ]]; then
         cp "$file" "$output_dir"
     fi
 done
-
-
-
 
 # Check si il y a des images PNG dans le répertoire de sortie :
 # Si la chaîne est vide, la substitution de commande "$(ls -A "$output_dir"/*.png" exécute la commande ls pour lister tous les fichiers PNG dans le répertoire de sortie.
 # -A affiche tous les fichiers, y compris les fichiers cachés.
 # 2>/dev/null est utilisé pour rediriger la sortie d'erreur vers /dev/null, ce qui supprime les messages d'erreur.
-   
-if [ -z "$(ls -A "$output_dir"/*.png 2>/dev/null)" ]; then
+   if [ -z "$(ls -A "$output_dir"/*.png 2>/dev/null)" ]; then
     echo "No PNG files found in $output_dir"
     exit 1
 fi
@@ -51,11 +40,9 @@ for file in "$output_dir"/*.png; do
     image_width=$(identify -format "%w" "$file")
     image_height=$(identify -format "%h" "$file")
     
-# boucle avec convert pour changer l'extention
-
-    # Check si l'image doit être resize :
+ # Check si l'image doit être resize :
     # Si l'image est plus large (greater < ) que la largeur minimum || Si l'image est plus grande (greater < ) que la hauteur minimum, alors :
-    if [[ -n "$image_width" && -n "$image_height" && ( "$image_width" -gt "$minimum_width" || "$image_height" -gt "$minimum_height" ) ]]; then
+       if [[ -n "$image_width" && -n "$image_height" && ( "$image_width" -gt "$minimum_width" || "$image_height" -gt "$minimum_height" ) ]]; then
         # Resize l'image
         mogrify -resize "$minimum_width"x"$minimum_height" "$file"
     fi
