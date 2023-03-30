@@ -30,6 +30,7 @@ for file in "$input_dir"/*; do
 
                     # convert -format png "$file" "$output_dir/$(basename "$file" ".$extension")_%d.$extension"
 
+
                     # Si on souhaite écraser les fichiers existants, on pouvez utiliser l'option -f (force) de la commande convert.
                     # Cela permettra à convert d'écraser les fichiers existants sans demander de confirmation. :
 
