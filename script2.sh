@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # Mettre en place le répertoire d'entrée et de sortie
-# input à définir
-# output à définir
 input_dir="D:/images/uploads/2022/test"
 output_dir="D:/out"
 
@@ -25,7 +23,9 @@ for file in "$input_dir"/*; do
     extension="${file##*.}"
     
     # Convertir le fichier en image PNG si ce n'en est pas déjà un
-    if [[ "$extension" != "png" ]]; then
+    # if [[ "$extension" != "png" ]]; then
+     if [[ "$extension" == "svg" ]]; then
+
         convert "$file" "$output_dir/$(basename "$file" ".$extension").png"
     else
         cp "$file" "$output_dir"
@@ -35,7 +35,11 @@ done
 
 
 
-# Check si il y a des images PNG dans le répertoire de sortie
+# Check si il y a des images PNG dans le répertoire de sortie :
+# Si la chaîne est vide, la substitution de commande "$(ls -A "$output_dir"/*.png" exécute la commande ls pour lister tous les fichiers PNG dans le répertoire de sortie.
+# -A affiche tous les fichiers, y compris les fichiers cachés.
+# 2>/dev/null est utilisé pour rediriger la sortie d'erreur vers /dev/null, ce qui supprime les messages d'erreur.
+   
 if [ -z "$(ls -A "$output_dir"/*.png 2>/dev/null)" ]; then
     echo "No PNG files found in $output_dir"
     exit 1
@@ -49,7 +53,7 @@ for file in "$output_dir"/*.png; do
     
 # boucle avec convert pour changer l'extention
 
-    # Check si l'image doit être resize
+    # Check si l'image doit être resize :
     # Si l'image est plus large (greater < ) que la largeur minimum || Si l'image est plus grande (greater < ) que la hauteur minimum, alors :
     if [[ -n "$image_width" && -n "$image_height" && ( "$image_width" -gt "$minimum_width" || "$image_height" -gt "$minimum_height" ) ]]; then
         # Resize l'image
