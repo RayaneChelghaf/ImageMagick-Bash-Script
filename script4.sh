@@ -19,26 +19,22 @@ for file in "$input_dir"/*; do
     
     # Convertir le fichier en image PNG si ce n'en est pas déjà un
     if [[ "$extension" == "svg" ]]; then
-        # convert "$file" "$output_dir/$(basename "$file" ".$extension").png"
+        convert "$file" "$output_dir/$(basename "$file" ".$extension").png"
        
-        # Si on veut spécifier le format et garder l'extention :
+                # Si on veut spécifier le format et garder l'extention :
 
 
-# convertir le fichier d'entrée au format PNG et conserver l'extension originale dans le nom de fichier de sortie.
-# Le spécificateur de format %d sera remplacé par un identifiant unique pour chaque fichier de sortie afin d'éviter l'écrasement de fichiers existants.
+                    # convertir le fichier d'entrée au format PNG et conserver l'extension originale dans le nom de fichier de sortie.
+                    # Le spécificateur de format %d sera remplacé par un identifiant unique pour chaque fichier de sortie afin d'éviter l'écrasement de fichiers existants.
 
 
-convert -format png "$file" "$output_dir/$(basename "$file" ".$extension")_%d.$extension"
+                    # convert -format png "$file" "$output_dir/$(basename "$file" ".$extension")_%d.$extension"
 
-# Si on souhaite écraser les fichiers existants, on pouvez utiliser l'option -f (force) de la commande convert.
-# Cela permettra à convert d'écraser les fichiers existants sans demander de confirmation. :
-
-
-# convert -f "$file" "$output_dir/$(basename "$file" .$extension).png"
+                    # Si on souhaite écraser les fichiers existants, on pouvez utiliser l'option -f (force) de la commande convert.
+                    # Cela permettra à convert d'écraser les fichiers existants sans demander de confirmation. :
 
 
-
-
+                    # convert -force "$file" "$output_dir/$(basename "$file" .$extension).png"
 
 
     elif [[ "$extension" != "png" ]]; then
