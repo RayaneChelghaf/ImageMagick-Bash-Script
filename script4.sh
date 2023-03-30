@@ -29,13 +29,14 @@ for file in "$input_dir"/*; do
 
 
                     # convert -format png "$file" "$output_dir/$(basename "$file" ".$extension")_%d.$extension"
-
+                    # (garder cette commande dans cet ordre transforme tout les fichiers en svg)
 
                     # Si on souhaite écraser les fichiers existants, on pouvez utiliser l'option -f (force) de la commande convert.
                     # Cela permettra à convert d'écraser les fichiers existants sans demander de confirmation. :
 
 
-                    # convert -force "$file" "$output_dir/$(basename "$file" .$extension).png"
+                    # convert -force "$file" "$output_dir/$(basename "$file" .$extension).png" 
+                    # (force et f ne sont pas compatible)
 
 
     elif [[ "$extension" != "png" ]]; then
