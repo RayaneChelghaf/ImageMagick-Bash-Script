@@ -35,7 +35,7 @@ done
 # -A affiche tous les fichiers, y compris les fichiers cachés.
 # 2>/dev/null est utilisé pour rediriger la sortie d'erreur vers /dev/null, ce qui supprime les messages d'erreur.
 if [ -z "$(ls -A "$output_dir"/*.png 2>/dev/null)" ]; then
-    echo "No PNG files found in $output_dir"
+    echo "Aucune image au format PNG détectée dans le répertoire $output_dir"
     exit 1
 fi
 
