@@ -1,5 +1,5 @@
 # ImageMagick-Bash-Script
-# # ImageMagick script to automate resize and file conversion 
+## ImageMagick script to automate resize and file conversion 
 
 Ce script prend un répertoire d'entrée contenant des fichiers SVG et des images avec d'autres extensions.
 
