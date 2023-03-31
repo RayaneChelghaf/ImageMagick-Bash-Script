@@ -19,24 +19,21 @@ for file in "$input_dir"/*; do
     
     # Convertir le fichier en image PNG si ce n'en est pas déjà un
     if [[ "$extension" == "svg" ]]; then
-        convert "$file" "$output_dir/$(basename "$file" ".$extension").png"
+        # convert "$file" "$output_dir/$(basename "$file" ".$extension").png"
        
                 # Si on veut spécifier le format et garder l'extention :
 
 
-                    # convertir le fichier d'entrée au format PNG et conserver l'extension originale dans le nom de fichier de sortie.
-                    # Le spécificateur de format %d sera remplacé par un identifiant unique pour chaque fichier de sortie afin d'éviter l'écrasement de fichiers existants.
+#                 -define pour définir le format en png24, qui est un format PNG sans perte qui prend en charge la transparence.
+#                 -strip pour supprimer toute information de profil et de texte de l'image.
+#                 -set pour définir le nom de fichier de sortie sur le nom de fichier d'entrée sans l'extension
+#                 +adjoin pour créer plusieurs fichiers de sortie si nécessaire.
+#                 .png est ajoutée au nom de fichier de sortie.
 
 
-                    # convert -format png "$file" "$output_dir/$(basename "$file" ".$extension")_%d.$extension"
-                    # (garder cette commande dans cet ordre transforme tout les fichiers en svg)
+                # Cela devrait convertir les fichiers d'entrée en format PNG tout en conservant l'extension d'origine et écraser les fichiers existants dans le répertoire de sortie.
 
-                    # Si on souhaite écraser les fichiers existants, on pouvez utiliser l'option -f (force) de la commande convert.
-                    # Cela permettra à convert d'écraser les fichiers existants sans demander de confirmation. :
-
-
-                    # convert -force "$file" "$output_dir/$(basename "$file" .$extension).png" 
-                    # (force et f ne sont pas compatible)
+                convert -define png:format=png24 -strip "$file" -set filename: "%t" +adjoin "$output_dir/%[filename:].png"
 
 
     elif [[ "$extension" != "png" ]]; then
