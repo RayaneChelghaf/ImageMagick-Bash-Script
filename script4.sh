@@ -19,12 +19,27 @@ for file in "$input_dir"/*; do
     
     # Convertir le fichier en image PNG si ce n'en est pas déjà un
     if [[ "$extension" == "svg" ]]; then
-        convert "$file" "$output_dir/$(basename "$file" ".$extension").png"
+        # convert "$file" "$output_dir/$(basename "$file" ".$extension").png"
+       
+                # Si on veut spécifier le format et garder l'extention :
+
+
+#                 -define pour définir le format en png24, qui est un format PNG sans perte qui prend en charge la transparence.
+#                 -strip pour supprimer toute information de profil et de texte de l'image.
+#                 -set pour définir le nom de fichier de sortie sur le nom de fichier d'entrée sans l'extension
+#                 +adjoin pour créer plusieurs fichiers de sortie si nécessaire.
+#                 .png est ajoutée au nom de fichier de sortie.
+
+
+                # Cela devrait convertir les fichiers d'entrée en format PNG tout en conservant l'extension d'origine et écraser les fichiers existants dans le répertoire de sortie.
+
+                convert -define png:format=png24 -strip "$file" -set filename: "%t" +adjoin "$output_dir/%[filename:].png"
+
+
     elif [[ "$extension" != "png" ]]; then
         cp "$file" "$output_dir"
     fi
 done
-
 # Check si il y a des images PNG dans le répertoire de sortie :
 # Si la chaîne est vide, la substitution de commande "$(ls -A "$output_dir"/*.png" exécute la commande ls pour lister tous les fichiers PNG dans le répertoire de sortie.
 # -A affiche tous les fichiers, y compris les fichiers cachés.
