@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # Mettre en place le répertoire d'entrée et de sortie
 input_dir="D:/images/uploads/2022/test"
